@@ -1,49 +1,348 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+        <title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/vs2015.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <style type="text/css">
+            .reveal section img { background:none; border:none; box-shadow:none; } /* Do not show border around images */
+        </style>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>- ELK Stack &amp; Docker -</h2>
+
+                    <h3>Dan Clarke</h3>
+
+                    <p><a href="">https://www.danclarke.com</a></p>
+                    <p><a href="">@dracan</a></p>
+
+                    <p><i>Independent Developer / Contractor</i></p>
+                </section>
+                <section>
+                    <img data-src="images/scared-bug.jpg" />
+                </section>
+                <section>
+                    <img data-src="images/exhausted_computer_user.svg" width=500 />
+                </section>
+                <section>
+                    <img data-src="images/elk.svg" />
+                    <h2>ELK Stack</h2>
+                </section>
+                <section>
+                    <h3>Agenda</h3>
+
+                    <ul>
+                        <li class="fragment">ELK Stack Overview</li>
+                        <li class="fragment">Docker and Containers (with demo)</li>
+                        <li class="fragment">Serilog</li>
+                        <li class="fragment">ELK Demo</li>
+                    </ul>
+                </section>
+                <section>
+                    <img data-src="images/elk.svg" />
+                    <h2>ELK Stack</h2>
+                </section>
+                <section>
+                    <img data-src="images/elk_es.svg" />
+                    <h2>Elastic Search</h2>
+                </section>
+                <section>
+                    <img data-src="images/elk_ls.png" />
+                    <h2>Logstash</h2>
+
+                    <img data-src="images/database.png" class="fragment" style="position: fixed; left: 100px; top: 100px;" width=200 />
+                    <img data-src="images/logfile.png" class="fragment" style="position: fixed; right: 100px; top: 100px;" width=200 />
+                    <img data-src="images/rabbitmq.svg" class="fragment" style="position: fixed; left: 100px; bottom: 100px;" width=150 />
+                    <img data-src="images/stdout.png" class="fragment" style="position: fixed; right: 100px; bottom: 100px;" width=200 />
+                </section>
+                <section>
+                    <img data-src="images/elk_ls.png" />
+                    <h2>Logstash</h2>
+                </section>
+                <section>
+                    <img data-src="images/elk_ls_x.png" />
+                    <h2><strike>Logstash</strike></h2>
+                </section>
+                <section>
+                    <img data-src="images/elk_kib.svg" />
+                    <h2>Kibana</h2>
+                </section>
+                <section>
+                    <img data-src="images/kibanadashboard.png" />
+                </section>
+                <section>
+                    <img data-src="images/docker-logo.png" />
+                    <h2>Docker</h2>
+                </section>
+                <section>
+                    <img data-src="images/ship.png" />
+                </section>
+                <section>
+                    <img data-src="images/shippingcontainer.jpg" />
+                </section>
+                <section>
+                    <h3>Containers</h3>
+
+                    <ul>
+                        <li class="fragment">Lightweight</li>
+                        <li class="fragment">Disposable</li>
+                        <li class="fragment">Seconds to spin up / tear down</li>
+                        <li class="fragment">Lifetime is a single process</li>
+                        <li class="fragment">Self contained</li>
+                        <li class="fragment">Individually deployable / scalable</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Images</h2>
+
+                    <ul>
+                        <li class="fragment">Template for containers</li>
+                        <li class="fragment">Quite big really!</li>
+                        <li class="fragment">Layered</li>
+                        <li class="fragment">Cached (per layer)</li>
+                    </ul>
+                </section>
+                <section>
+                    <img data-src="images/dockerhero.jpg" width=500 />
+                    <h2>Docker Hub</h2>
+                </section>
+                <section>
+                    <h2>Dockerfile</h2>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape>
+                        FROM microsoft/aspnetcore
+                        WORKDIR /app
+                        COPY . .
+                        EXPOSE 80
+                        ENTRYPOINT dotnet dockertest.dll
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape>
+                        <span class="">FROM microsoft/aspnetcore</span>
+                        <span class="fragment">WORKDIR /app</span>
+                        <span class="fragment">COPY . .</span>
+                        <span class="fragment">EXPOSE 80</span>
+                        <span class="fragment">ENTRYPOINT dotnet myapp.dll</span>
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape>
+                        FROM ubuntu:14.04
+                        RUN apt-get update
+                        RUN apt-get install -y curl
+                        ...
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape>
+                        FROM ubuntu:14.04
+                        RUN apt-get update && apt-get install -y curl
+                        ...
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Docker CLI</h2>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="powershell">
+                        docker build . -t &lt;tagname&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="powershell">
+                        docker run -p 1234:80 &lt;image_name&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="powershell">
+                        docker start &lt;container_name&gt;
+                        docker stop &lt;container_name&gt;
+                        docker rm &lt;container_name&gt;
+                        docker kill &lt;container_name&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="powershell">
+                        docker ps -all
+                    </code></pre>
+
+                    <pre class="fragment"><code data-trim data-noescape class="powershell">
+                        CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
+                        e8f3c41b8d2c        dockerelk_kibana    "/bin/bash /usr/lo..."   About a minute ago   Up About a minute   0.0.0.0:5601->5601/tcp   dockerelk_kibana_1
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="powershell">
+                        docker push
+                        docker pull
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Docker Compose</h2>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape>
+                        version: '3'
+                        services:
+                            web:
+                                build: .
+                                ports:
+                                    - "1234:80"
+                            <span class="fragment">api:
+                                image: "MyApi"
+                                ports:
+                                    - "5001:80"
+                            </span><span class="fragment">mongodb:
+                                image: "mongo"
+                            </span><span class="fragment">redis:
+                                image: "redis"
+                            </span>
+                    </code></pre>
+                </section>
+                <section>
+                    <p>CLI Examples</p>
+
+                    <pre><code data-trim data-noescape class="powershell">
+                        <span class="fragment">docker-compose up</span>
+                        <span class="fragment">docker-compose down</span>
+                        <span class="fragment">docker-compose build</span>
+                        <span class="fragment">docker-compose push</span>
+                        <span class="fragment">docker-compose pull</span>
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Docker Demo</h2>
+                </section>
+                <section>
+                    <img data-src="images/Serilog.png" />
+                    <h2>Serilog</h2>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="cs">
+                        var obj = new
+                        {
+                            a = "hello",
+                            b = 456
+                        };
+
+                        var num = 57;
+                        <span class="fragment">
+                        Log.Information("Object: {@obj}, num = {num}", obj, num);
+                        </span>
+                    </code></pre>
+
+                    <pre class="fragment"><code data-trim data-noescape>
+                        09:14:22 [Information] Object: { a: hello, b: 456 }, num = 57
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="cs">
+                        Log.Logger = new LoggerConfiguration()
+                            .MinimumLevel.Debug()
+                            .WriteTo.LiterateConsole()
+                            .CreateLogger();
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim data-noescape class="cs">
+                        Log.Logger = new LoggerConfiguration()
+                            .WriteTo.Elasticsearch(
+                                new ElasticsearchSinkOptions(
+                                    new Uri("http://localhost:9200"))
+                            {
+                                AutoRegisterTemplate = true,
+                            }).CreateLogger();
+                    </code></pre>
+                </section>
+                <section>
+                    <img data-src="images/minions.jpg" />
+                    <h1>DEMO TIME!</h1>
+                </section>
+                <section>
+                    <h2>Summary</h2>
+                    <h4>What have we done?</h4>
+
+                    <ul>
+                        <li class="fragment">Quickly created an MVC app using the dotnet CLI</li>
+                        <li class="fragment">Dockerized project using vscode tooling</li>
+                        <li class="fragment">Built a release image and pushed to Docker Hub</li>
+                        <li class="fragment">Updated the image adding Serilog support</li>
+                        <li class="fragment">Very quickly spun up the ELK Stack with Docker</li>
+                        <li class="fragment">Created dashboard with graph plotted from LINQPad
+                            and logs from our Dockerized MVC app</li>
+                    </ul>
+                </section>
+                <section>
+                    <img data-src="images/questionmark.jpg" />
+                    <h2>Preempted Questions...</h2>
+                </section>
+                <section>
+                    <p>Would you <i>actually</i> use Serilog for metrics in the real world?</p>
+                </section>
+                <section>
+                    <img data-src="images/Grafana.png" />
+                    <p>How does this compare to Grafana?</p>
+                </section>
+                <section>
+                    <img data-src="images/GrafanaDashboard.png" />
+                </section>
+                <section>
+                    <img data-src="images/Questions.png" />
+                </section>
+                <section>
+                    <h2>Kubernetes</h2>
+                    <h4>for .NET developers</h4>
+                    <img data-src="images/Shahid.jpg" />
+                    <p>Shahid Iqbal</p>
+                    <p><a href="">@ShahidDev</a></p>
+                </section>
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                transition: 'fade', // none/fade/slide/convex/concave/zoom
+                controls: false,
+                progress: false,
+                history: true, // Means I can F5 during development, and not lose my place
+                // width: '100%',
+                // height: '100%',
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
 </html>
